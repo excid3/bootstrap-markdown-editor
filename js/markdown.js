@@ -2823,14 +2823,14 @@ else
             buttons.italic = makeButton("bme-italic-button", "Italic", "Italic - Ctrl+I", "icon-italic", bindCommand("doItalic"), group1);
             
             group2 = makeGroup(2);
-            //buttons.link = makeButton("bme-link-button", "Link - Ctrl+L", "icon-link", bindCommand(function (chunk, postProcessing) {
-            //    return this.doLinkOrImage(chunk, postProcessing, false);
-            //}), group2);
+            buttons.link = makeButton("bme-link-button", "Link", "Link - Ctrl+L", "icon-link", bindCommand(function (chunk, postProcessing) {
+                return this.doLinkOrImage(chunk, postProcessing, false);
+            }), group2);
             buttons.quote = makeButton("bme-quote-button", "Quote", "Blockquote - Ctrl+Q", "icon-blockquote", bindCommand("doBlockquote"), group2);
             buttons.code = makeButton("bme-code-button", "Code", "Code Sample - Ctrl+K", "icon-code", bindCommand("doCode"), group2);
-            //buttons.image = makeButton("bme-image-button", "Image - Ctrl+G", "icon-picture", bindCommand(function (chunk, postProcessing) {
-            //    return this.doLinkOrImage(chunk, postProcessing, true);
-            //}), group2);
+            buttons.image = makeButton("bme-image-button", "Image", "Image - Ctrl+G", "icon-picture", bindCommand(function (chunk, postProcessing) {
+                return this.doLinkOrImage(chunk, postProcessing, true);
+            }), group2);
 
             group3 = makeGroup(3);
             buttons.olist = makeButton("bme-olist-button", "Number", "Numbered List - Ctrl+O", "icon-list", bindCommand(function (chunk, postProcessing) {
