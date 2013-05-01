@@ -16,40 +16,28 @@
     <div class="wmd-panel">
       <div id="bme-button-bar"></div>
 
-      <ul class="nav nav-tabs">
-        <li class="active">
-          <a data-toggle="tab" href="#editor">Editor</a>
-        </li>
-        <li>
-          <a data-toggle="tab" href="#preview">Preview</a>
-        </li>
-      </ul>
-
-      <div class="tab-content">
-        <div id="editor" class="tab-pane active">
-          <textarea id="bme-input" style="width: 99%; height: 250px; border: 1px solid #ccc">
+      <div id="editor" class="tab-pane active">
+        <textarea id="bme-input" style="width: 700px; height: 200px">
 #Heading 1            
 ##Heading 2            
 ###Heading 3            
-          </textarea>
-        </div>
+        </textarea>
+      </div>
 
-        <div id="preview" class="tab-pane">
-          <div id="bme-preview"></div>
-        </div>
+      <div id="preview" class="tab-pane">
+        <div id="bme-preview"></div>
       </div>
     </div>
 
     <script>
-    $(document).ready(function(){
-       (function() {
-         var converter = Markdown.getSanitizingConverter();
-         var editor = new Markdown.Editor(converter);
-         editor.run();
-       })();
-    });
-  </script>
+      $(document).ready(function(){
+         (function() {
+           var converter = Markdown.getSanitizingConverter();
+           var editor = new Markdown.Editor(converter);
+           editor.run();
+         })();
+      });
+    </script>
   </div>
-  <!-- row -->
 </body>
 </html>
