@@ -1,0 +1,12 @@
+#editor {
+	width:542px; 
+	height:180px; 
+	background-color:#fff;
+}
+
+#preview {
+	width:542px; 
+	height:200px; 
+	overflow:auto; 
+	background-color:#fff;
+}

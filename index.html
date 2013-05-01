@@ -12,7 +12,6 @@
   </head>
 <body>
 <div class="container bme-editor">
-<div class="row well no-margin-left">
 	<div class="span12">
 	<h1>bootstrap markdown editor</h1>
 	  <div class="wmd-panel">
@@ -41,12 +40,21 @@
 		</div>
 	  </div>	
 	</div><!-- span12 -->
-	<div class="span6">
-  		<textarea id="bme-input" class="well" style="width:542px; height:180px; background-color:#fff"></textarea>
-	</div>
-	<div class="span6">
-		<div id="bme-preview" class="well" style="width:542px; height:200px; overflow:auto; background-color:#fff""></div>
-	</div>
+
+	<ul class="nav nav-tabs" id="myTab">
+      <li class="active"><a data-toggle="tab" href="#editor">Editor</a></li>
+      <li><a data-toggle="tab" href="#preview">Preview</a></li>
+    </ul>
+
+    <div class="tab-content" id="myTabContent">
+      <div id="editor" class="tab-pane fade">
+        <textarea id="bme-input" class="well"></textarea>
+      </div>
+      <div id="preview" class="tab-pane fade active in">
+        <div id="bme-preview" class="well"></div>
+      </div>
+  	</div>
+
 	<script>
 		$(document).ready(function(){
 		   (function() {
@@ -58,6 +66,5 @@
 		});
 	</script>
 </div><!-- row -->
-</div><!-- container -->
 </body>
 </html>
