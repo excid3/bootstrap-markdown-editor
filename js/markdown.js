@@ -4,7 +4,7 @@ if (typeof exports === "object" && typeof require === "function") // we're in a 
     Markdown = exports;
 else
     Markdown = {};
-    
+
 // The following text is included for historical reasons, but should
 // be taken with a pinch of salt; it's not all true anymore.
 
@@ -133,7 +133,7 @@ else
             // Don't do that.
             if (g_urls)
                 throw new Error("Recursive call to converter.makeHtml");
-        
+
             // Create the private state objects.
             g_urls = new SaveHash();
             g_titles = new SaveHash();
@@ -305,7 +305,7 @@ else
             text = text.replace(/^(<(p|div|h[1-6]|blockquote|pre|table|dl|ol|ul|script|noscript|form|fieldset|iframe|math)\b[^\r]*?.*<\/\2>[ \t]*(?=\n+)\n)/gm, hashElement);
 
             // Special case just for <hr />. It was easier to make a special case than
-            // to make the other regex more complicated.  
+            // to make the other regex more complicated.
 
             /*
             text = text.replace(/
@@ -425,9 +425,9 @@ else
             // Must come after _DoAnchors(), because you can use < and >
             // delimiters in inline links like [this](<url>).
             text = _DoAutoLinks(text);
-            
+
             text = text.replace(/~P/g, "://"); // put in place to prevent autolinking; reset now
-            
+
             text = _EncodeAmpsAndAngles(text);
             text = _DoItalicsAndBold(text);
 
@@ -443,7 +443,7 @@ else
             // don't conflict with their use in Markdown for code, italics and strong.
             //
 
-            // Build a regex to find HTML tags and comments.  See Friedl's 
+            // Build a regex to find HTML tags and comments.  See Friedl's
             // "Mastering Regular Expressions", 2nd Ed., pp. 200-201.
 
             // SE: changed the comment part of the regex
@@ -517,7 +517,7 @@ else
                             |
                             [^()]
                         )*?
-                    )>?                
+                    )>?
                     [ \t]*
                     (                       // $5
                         (['"])              // quote char = $6
@@ -656,7 +656,7 @@ else
 
             return text;
         }
-        
+
         function attributeEncode(text) {
             // unconditionally replace angle brackets here -- what ends up in an attribute (e.g. alt or title)
             // never makes sense to have verbatim HTML in it (and the sanitizer would totally break it)
@@ -689,7 +689,7 @@ else
                     return whole_match;
                 }
             }
-            
+
             alt_text = escapeCharacters(attributeEncode(alt_text), "*_[]()");
             url = escapeCharacters(url, "*_");
             var result = "<img src=\"" + url + "\" alt=\"" + alt_text + "\"";
@@ -713,7 +713,7 @@ else
             // Setext-style headers:
             //  Header 1
             //  ========
-            //  
+            //
             //  Header 2
             //  --------
             //
@@ -872,7 +872,7 @@ else
             //
             // We changed this to behave identical to MarkdownSharp. This is the constructed RegEx,
             // with {MARKER} being one of \d+[.] or [*+-], depending on list_type:
-        
+
             /*
             list_str = list_str.replace(/
                 (^[ \t]*)                       // leading whitespace = $1
@@ -920,7 +920,7 @@ else
         function _DoCodeBlocks(text) {
             //
             //  Process Markdown `<pre><code>` blocks.
-            //  
+            //
 
             /*
             text = text.replace(/
@@ -968,26 +968,26 @@ else
         function _DoCodeSpans(text) {
             //
             // * Backtick quotes are used for <code></code> spans.
-            // 
+            //
             // * You can use multiple backticks as the delimiters if you want to
             //   include literal backticks in the code span. So, this input:
-            //     
+            //
             //      Just type ``foo `bar` baz`` at the prompt.
-            //     
+            //
             //   Will translate to:
-            //     
+            //
             //      <p>Just type <code>foo `bar` baz</code> at the prompt.</p>
-            //     
+            //
             //   There's no arbitrary limit to the number of backticks you
             //   can use as delimters. If you need three consecutive backticks
             //   in your code, use four for delimiters, etc.
             //
             // * You can use spaces to get literal backticks at the edges:
-            //     
+            //
             //      ... type `` `bar` `` ...
-            //     
+            //
             //   Turns to:
-            //     
+            //
             //      ... type <code>`bar`</code> ...
             //
 
@@ -1120,7 +1120,7 @@ else
 
             var grafs = text.split(/\n{2,}/g);
             var grafsOut = [];
-            
+
             var markerRe = /~K(\d+)K/;
 
             //
@@ -1201,11 +1201,11 @@ else
             // *except* for the <http://www.foo.com> case
 
             // automatically add < and > around unadorned raw hyperlinks
-            // must be preceded by space/BOF and followed by non-word/EOF character    
+            // must be preceded by space/BOF and followed by non-word/EOF character
             text = text.replace(/(^|\s)(https?|ftp)(:\/\/[-A-Z0-9+&@#\/%?=~_|\[\]\(\)!:,\.;]*[-A-Z0-9+&@#\/%=~_|\[\]])($|\W)/gi, "$1<$2$3>$4");
 
             //  autolink anything like <http://example.com>
-            
+
             var replacer = function (wholematch, m1) { return "<a href=\"" + m1 + "\">" + pluginHooks.plainLinkText(m1) + "</a>"; }
             text = text.replace(/<((https?|ftp):[^'">\s]+)>/gi, replacer);
 
@@ -1295,7 +1295,7 @@ else
 
         var _problemUrlChars = /(?:["'*()[\]:]|~D)/g;
 
-        // hex-encodes some unusual "problem" chars in URLs to avoid URL detection problems 
+        // hex-encodes some unusual "problem" chars in URLs to avoid URL detection problems
         function encodeProblemUrlChars(url) {
             if (!url)
                 return "";
@@ -1351,7 +1351,7 @@ else
         output = window.Markdown;
         Converter = output.Converter;
     }
-        
+
     output.getSanitizingConverter = function () {
         var converter = new Converter();
         converter.hooks.chain("postConversion", sanitizeHtml);
@@ -1384,9 +1384,9 @@ else
     /// <summary>
     /// attempt to balance HTML tags in the html string
     /// by removing any unmatched opening or closing tags
-    /// IMPORTANT: we *assume* HTML has *already* been 
+    /// IMPORTANT: we *assume* HTML has *already* been
     /// sanitized and is safe/sane before balancing!
-    /// 
+    ///
     /// adapted from CODESNIPPET: A8591DBA-D1D3-11DE-947C-BA5556D89593
     /// </summary>
     function balanceTags(html) {
@@ -1476,7 +1476,7 @@ else
     // -------------------------------------------------------------------
     //  YOUR CHANGES GO HERE
     //
-    // I've tried to localize the things you are likely to change to 
+    // I've tried to localize the things you are likely to change to
     // this area.
     // -------------------------------------------------------------------
 
@@ -1615,7 +1615,7 @@ else
             beforeReplacer = function (s) { that.before += s; return ""; }
             afterReplacer = function (s) { that.after = s + that.after; return ""; }
         }
-        
+
         this.selection = this.selection.replace(/^(\s*)/, beforeReplacer).replace(/(\s*)$/, afterReplacer);
     };
 
@@ -1683,14 +1683,14 @@ else
         }
     };
 
-    // end of Chunks 
+    // end of Chunks
 
     // A collection of the important regions on the page.
     // Cached so we don't have to keep traversing the DOM.
     // Also holds ieCachedRange and ieCachedScrollTop, where necessary; working around
     // this issue:
     // Internet explorer has problems with CSS sprite buttons that use HTML
-    // lists.  When you click on the background image "button", IE will 
+    // lists.  When you click on the background image "button", IE will
     // select the non-existent link text and discard the selection in the
     // textarea.  The solution to this is to cache the textarea selection
     // on the button's mousedown event and set a flag.  In the part of the
@@ -2035,7 +2035,7 @@ else
                     setMode("escape");
                 }
                 else if ((keyCode < 16 || keyCode > 20) && keyCode != 91) {
-                    // 16-20 are shift, etc. 
+                    // 16-20 are shift, etc.
                     // 91: left window key
                     // I think this might be a little messed up since there are
                     // a lot of nonprinting keys above 20.
@@ -2179,7 +2179,7 @@ else
 
                 if (panels.ieCachedRange)
                     stateObj.scrollTop = panels.ieCachedScrollTop; // this is set alongside with ieCachedRange
-                
+
                 panels.ieCachedRange = null;
 
                 this.setInputAreaSelection();
@@ -2419,7 +2419,7 @@ else
         init();
     };
 
-    
+
     // This simulates a modal dialog box and asks for the URL when you
     // click the hyperlink or image buttons.
     //
@@ -2576,11 +2576,11 @@ else
                 range.moveEnd("character", defTextLen);
                 range.select();
             }
-            
+
             $(dialog).on('shown', function () {
                 input.focus();
             })
-            
+
             $(dialog).on('hidden', function () {
                 dialog.parentNode.removeChild(dialog);
             })
@@ -2718,7 +2718,7 @@ else
                 //
                 // var link = CreateLinkDialog();
                 // makeMarkdownLink(link);
-                // 
+                //
                 // Instead of this straightforward method of handling a
                 // dialog I have to pass any code which would execute
                 // after the dialog is dismissed (e.g. link creation)
@@ -2789,12 +2789,15 @@ else
             var makeButton = function (id, text, title, icon, textOp, group) {
                 var button = document.createElement("button");
                 button.className = "btn";
-                // var buttonImage = document.createElement("i");
-                // buttonImage.className = icon;
+
+                var buttonImage = document.createElement("i");
+                buttonImage.className = icon;
+
                 button.id = id + postfix;
-                // button.appendChild(buttonImage);
+
                 button.title = title;
-				button.innerHTML = text;
+                button.innerHTML = "";
+                button.appendChild(buttonImage);
                 //$(button).tooltip({placement: 'bottom'})
 
                 if (textOp)
@@ -2821,27 +2824,27 @@ else
             group1 = makeGroup(1);
             buttons.bold = makeButton("bme-bold-button", "Bold", "Bold - Ctrl+B", "icon-bold", bindCommand("doBold"), group1);
             buttons.italic = makeButton("bme-italic-button", "Italic", "Italic - Ctrl+I", "icon-italic", bindCommand("doItalic"), group1);
-            
+
             group2 = makeGroup(2);
             buttons.link = makeButton("bme-link-button", "Link", "Link - Ctrl+L", "icon-link", bindCommand(function (chunk, postProcessing) {
                 return this.doLinkOrImage(chunk, postProcessing, false);
             }), group2);
-            buttons.quote = makeButton("bme-quote-button", "Quote", "Blockquote - Ctrl+Q", "icon-blockquote", bindCommand("doBlockquote"), group2);
+            buttons.quote = makeButton("bme-quote-button", "Quote", "Blockquote - Ctrl+Q", "icon-quote-left", bindCommand("doBlockquote"), group2);
             buttons.code = makeButton("bme-code-button", "Code", "Code Sample - Ctrl+K", "icon-code", bindCommand("doCode"), group2);
             buttons.image = makeButton("bme-image-button", "Image", "Image - Ctrl+G", "icon-picture", bindCommand(function (chunk, postProcessing) {
                 return this.doLinkOrImage(chunk, postProcessing, true);
             }), group2);
 
             group3 = makeGroup(3);
-            buttons.olist = makeButton("bme-olist-button", "Number", "Numbered List - Ctrl+O", "icon-list", bindCommand(function (chunk, postProcessing) {
+            buttons.olist = makeButton("bme-olist-button", "Number", "Numbered List - Ctrl+O", "icon-list-ol", bindCommand(function (chunk, postProcessing) {
                 this.doList(chunk, postProcessing, true);
             }), group3);
-            buttons.ulist = makeButton("bme-ulist-button", "Bulleted",  "Bulleted List - Ctrl+U", "icon-bullet-list", bindCommand(function (chunk, postProcessing) {
+            buttons.ulist = makeButton("bme-ulist-button", "Bulleted",  "Bulleted List - Ctrl+U", "icon-list-ul", bindCommand(function (chunk, postProcessing) {
                 this.doList(chunk, postProcessing, false);
             }), group3);
-            buttons.heading = makeButton("bme-heading-button", "Heading", "Heading - Ctrl+H", "icon-header", bindCommand("doHeading"), group3);
-            buttons.hr = makeButton("bme-hr-button", "Rule", "Horizontal Rule - Ctrl+R", "icon-hr-line", bindCommand("doHorizontalRule"), group3);
-            
+            buttons.heading = makeButton("bme-heading-button", "Heading", "Heading - Ctrl+H", "icon-text-height", bindCommand("doHeading"), group3);
+            buttons.hr = makeButton("bme-hr-button", "Rule", "Horizontal Rule - Ctrl+R", "icon-resize-horizontal", bindCommand("doHorizontalRule"), group3);
+
             group4 = makeGroup(4);
             buttons.undo = makeButton("bme-undo-button", "Undo", "Undo - Ctrl+Z", "icon-undo", null, group4);
             buttons.undo.execute = function (manager) { if (manager) manager.undo(); };
@@ -3077,7 +3080,7 @@ else
 
         }
         else {
-            
+
             // We're moving start and end tag back into the selection, since (as we're in the else block) we're not
             // *removing* a link, but *adding* one, so whatever findTags() found is now back to being part of the
             // link text. linkEnteredCallback takes care of escaping any brackets.
@@ -3113,7 +3116,7 @@ else
                     // would mean a zero-width match at the start. Since zero-width matches advance the string position,
                     // the first bracket could then not act as the "not a backslash" for the second.
                     chunk.selection = (" " + chunk.selection).replace(/([^\\](?:\\\\)*)(?=[[\]])/g, "$1\\").substr(1);
-                    
+
                     var linkDef = " [999]: " + properlyEncoded(link);
 
                     var num = that.addLinkDef(chunk, linkDef);
@@ -3154,7 +3157,7 @@ else
         chunk.before = chunk.before.replace(/(\n|^)[ ]{0,3}([*+-]|\d+[.])[ \t]*\n$/, "\n\n");
         chunk.before = chunk.before.replace(/(\n|^)[ ]{0,3}>[ \t]*\n$/, "\n\n");
         chunk.before = chunk.before.replace(/(\n|^)[ \t]+\n$/, "\n\n");
-        
+
         // There's no selection, end the cursor wasn't at the end of the line:
         // The user wants to split the current list item / code line / blockquote line
         // (for the latter it doesn't really matter) in two. Temporarily select the
@@ -3182,7 +3185,7 @@ else
                 commandMgr.doCode(chunk);
             }
         }
-        
+
         if (fakeSelection) {
             chunk.after = chunk.selection + chunk.after;
             chunk.selection = "";
